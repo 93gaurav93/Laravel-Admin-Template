@@ -11,6 +11,30 @@
 |
 */
 
+use App\Student;
+use Illuminate\Http\Request;
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('layout', function () {
+    return view('layouts.admin.main');
+});
+
+Route::get('addform', function () {
+    return view('pages.admin.add_form');
+});
+
+Route::get('table', function () {
+    $data = [
+        'students' => Student::all(),
+    ];
+    return view('pages.admin.table', $data);
+});
+
+Route::post('SubmitForm', function (Request $request) {
+    $r = $request->all();
+    dd($r);
+});
+
