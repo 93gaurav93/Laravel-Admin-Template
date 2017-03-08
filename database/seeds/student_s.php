@@ -14,7 +14,7 @@ class student_s extends Seeder
     {
         $faker = Factory::create();
 
-        for ($i = 1; $i <= 50; $i++) {
+        for ($i = 1; $i <= 57; $i++) {
             DB::table('student')->insert([
                 'name' => $faker->name,
                 'about' => $faker->realText(10),
