@@ -17,11 +17,11 @@ class student_s extends Seeder
         for ($i = 1; $i <= 57; $i++) {
             DB::table('student')->insert([
                 'name' => $faker->name,
-                'about' => $faker->realText(10),
+                'about' => $faker->realText(400),
                 'dob' => $faker->dateTimeBetween('-27 years', '-17 years'),
-                'file' => 'file_1.pdf',
-                'photo' => $faker->imageUrl(150, 200, 'cats'),
-                'book' => $faker->numberBetween(1, 50),
+                'file' => '2.pdf',
+                'photo' => '2.jpg',
+                'book' => $faker->numberBetween(1, 10),
                 'profile_link' => $faker->url,
                 'gender' => $faker->numberBetween(1, 2),
                 'email' => $faker->safeEmail,

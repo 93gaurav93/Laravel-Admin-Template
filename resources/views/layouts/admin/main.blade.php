@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta name="csrf-token" content="{{csrf_token()}}">
-    <title>Admin Panel</title>
+    <title>@yield('page-title')</title>
     <!-- Favicon-->
     <link rel="icon" href="{{asset('favicon.ico')}}" type="image/x-icon">
 
@@ -14,21 +14,21 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
 
     <!-- Bootstrap Core Css -->
-    <link href="{{asset('plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
+    <link href="{{url('js/admin/plugins/bootstrap/css/bootstrap.css')}}" rel="stylesheet">
 
     <!-- Waves Effect Css -->
-    <link href="{{asset('plugins/node-waves/waves.css')}}" rel="stylesheet" />
+    <link href="{{url('js/admin/plugins/node-waves/waves.css')}}" rel="stylesheet" />
 
     <!-- Animation Css -->
-    <link href="{{asset('plugins/animate-css/animate.css')}}" rel="stylesheet" />
+    <link href="{{url('js/admin/plugins/animate-css/animate.css')}}" rel="stylesheet" />
 
     @yield('page-spec-css')
 
     <!-- Custom Css -->
-    <link href="{{asset('css/style.css')}}" rel="stylesheet">
+    <link href="{{url('css/admin/style.css')}}" rel="stylesheet">
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-    <link href="{{asset('css/themes/theme-light-blue.css')}}" rel="stylesheet" />
+    <link href="{{url('css/admin/themes/theme-light-blue.css')}}" rel="stylesheet" />
 </head>
 
 <body class="theme-light-blue">
@@ -58,7 +58,7 @@
         <div class="navbar-header">
             <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
             <a href="javascript:void(0);" class="bars"></a>
-            <a class="navbar-brand" href="{{url('index.html')}}">Table Name</a>
+            <a class="navbar-brand" href="javascript:void(0);">@yield('page-title')</a>
         </div>
 
     </div>
@@ -201,27 +201,27 @@
 </section>
 
 <!-- Jquery Core Js -->
-<script src="{{url('plugins/jquery/jquery.min.js')}}"></script>
+<script src="{{url('js/admin/plugins/jquery/jquery.min.js')}}"></script>
 
 <!-- Bootstrap Core Js -->
-<script src="{{url('plugins/bootstrap/js/bootstrap.js')}}"></script>
+<script src="{{url('js/admin/plugins/bootstrap/js/bootstrap.js')}}"></script>
 
 <!-- Select Plugin Js -->
-<script src="{{url('plugins/bootstrap-select/js/bootstrap-select.js')}}"></script>
+<script src="{{url('js/admin/plugins/bootstrap-select/js/bootstrap-select.js')}}"></script>
 
 <!-- Slimscroll Plugin Js -->
-<script src="{{url('plugins/jquery-slimscroll/jquery.slimscroll.js')}}"></script>
+<script src="{{url('js/admin/plugins/jquery-slimscroll/jquery.slimscroll.js')}}"></script>
 
 <!-- Waves Effect Plugin Js -->
-<script src="{{url('plugins/node-waves/waves.js')}}"></script>
+<script src="{{url('js/admin/plugins/node-waves/waves.js')}}"></script>
 
 
 <!-- Custom Js -->
-<script src="{{url('js/admin.js')}}"></script>
+<script src="{{url('js/admin/admin.js')}}"></script>
 
 @yield('page-spec-js')
 <!-- Demo Js -->
-<script src="{{url('js/demo.js')}}"></script>
+<script src="{{url('js/admin/demo.js')}}"></script>
 </body>
 
 </html>
