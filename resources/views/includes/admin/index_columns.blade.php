@@ -3,9 +3,9 @@
 <th class="no_orderable">Edit</th>
 <th class="no_orderable">Delete</th>
 
-@foreach($columnDefs as $columnHeader=>$column)
+@foreach($columns as $column)
     @if($column['showInIndex'])
-        <th class="{{$column['class']}}">{{$columnHeader}}</th>
+        <th class="{{$column['indexClasses']}}">{{$column['title']}}</th>
     @endif
 @endforeach
 

@@ -34,7 +34,7 @@
                 }
             ],
             ajax: {
-                url: '/admin/getStudents',
+                url: '{{$indexRecordsUrl}}',
                 type: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': xsrfToken
@@ -50,20 +50,20 @@
                 },
                 {
                     render: function (data, type, row) {
-                        return "<a target='_blank' href='/admin/Student/" + row.id + "'><button type='button' title='View Record' class='btn btn-circle  bg-light-green waves-effect waves-circle'><i class='material-icons'>featured_play_list</i></button></a>";
+                        return "<a target='_blank' href='{{$modelIndexUrl}}" + row.id + "'><button type='button' title='View Record' class='btn btn-circle  bg-light-green waves-effect waves-circle'><i class='material-icons'>featured_play_list</i></button></a>";
                     }
                 },
                 {
                     render: function (data, type, row) {
-                        return "<a href='/admin/Student/" + row.id + "/edit'><button type='button' title='Edit Record' class='btn btn-circle btn-primary waves-effect waves-circle'><i class='material-icons'>mode_edit</i></button></a>";
+                        return "<a href='{{$modelIndexUrl}}" + row.id + "/edit'><button type='button' title='Edit Record' class='btn btn-circle btn-primary waves-effect waves-circle'><i class='material-icons'>mode_edit</i></button></a>";
                     }
                 },
                 {
                     render: function (data, type, row) {
-                        return "<form method='post' action='/admin/Student/" + row.id + "'><input type='hidden' name='_method' value='DELETE'><input type='hidden' name='_token' value='" + xsrfToken + "'><button type='submit' title='Delete Record' class='btn btn-circle bg-red waves-effect waves-circle'><i class='material-icons'>delete_forever</i></button></form>";
+                        return "<form method='post' action='{{$modelIndexUrl}}" + row.id + "'><input type='hidden' name='_method' value='DELETE'><input type='hidden' name='_token' value='" + xsrfToken + "'><button type='submit' title='Delete Record' class='btn btn-circle bg-red waves-effect waves-circle'><i class='material-icons'>delete_forever</i></button></form>";
                     }
                 },
-                    @foreach($columnDefs as $column)
+                    @foreach($columns as $columnName=>$column)
                         @include('includes.admin.index_column_select')
                     @endforeach
                 {

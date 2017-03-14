@@ -11,6 +11,13 @@
 |
 */
 
+use App\User;
+
+Route::get('test', function () {
+    $users = User::all();
+
+    dd($users);
+});
 
 
 Route::group([
@@ -22,4 +29,9 @@ Route::group([
         Route::get('getBooks', 'StudentCtrl@getBooks');
         Route::resource('Student', 'StudentCtrl');
 
+        Route::post('getUsers', 'UserCtrl@getRecords');
+        Route::resource('User', 'UserCtrl');
+
     });
+
+

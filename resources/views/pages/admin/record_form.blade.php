@@ -8,7 +8,7 @@
 
     @include('includes.admin.form_header')
 
-    @foreach($formFields as $fieldName=>$field)
+    @foreach($columns as $columnName=>$column)
         @include('includes.admin.form_fields')
     @endforeach
 

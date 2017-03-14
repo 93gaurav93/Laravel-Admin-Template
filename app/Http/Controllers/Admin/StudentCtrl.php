@@ -10,27 +10,253 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+class CurrentModel extends Student
+{
+}
+
 class StudentCtrl extends Controller
 {
+    protected $modelIndexUrl;
 
-    public $rules = [
-        'name' => 'required|max:100',
-        'image' => 'nullable|image|max:1024|min:1',
-        'about' => 'nullable|max:500',
-        'dob' => 'nullable|date',
-        'book' => 'nullable|numeric',
-        'email' => 'nullable|email',
-        'file' => 'nullable|file|max:5120|mimes:pdf',
-        'profile_link' => 'nullable|url',
-        'age' => 'nullable|numeric|min:1|max:100'
-    ];
+    protected $initData;
 
-    public $dir = [
+    protected $modelName = 'Student';
+
+    protected $tableName = 'student';
+
+    protected $searchableColumnName = 'name';
+
+    protected $pageTitle = 'Student';
+
+    protected $routePrefix = '/admin/';
+
+    /* URL from where you are fetching all records for index page */
+    protected $indexRecordsUrl = 'getStudents';
+
+    /* Array of directories where you are storing your asset (images and files) */
+    protected $dir = [
         'imageDir' => '/images/student/',
         'imageThumbDir' => '/images/student/thumb/',
         'fileDir' => '/files/student/',
     ];
 
+    /* Columns configuration for Index, Show, Add and Update */
+    protected $columns = [
+        'id' => [
+            'formType' => '',
+            'showType' => 'text',
+            'showInForm' => false,
+            'showInIndex' => true,
+            'showInView' => true,
+            'title' => 'Id',
+            'requiredInForm' => true,
+            'widthInForm' => null,
+            'displayRule' => null,
+            'textAreaRows' => null,
+            'indexClasses' => null,
+            'backRules' => '',
+        ],
+        'name' => [
+            'formType' => 'text',
+            'showType' => 'text',
+            'showInForm' => true,
+            'showInIndex' => true,
+            'showInView' => true,
+            'title' => 'Name',
+            'requiredInForm' => true,
+            'widthInForm' => null,
+            'displayRule' => null,
+            'textAreaRows' => null,
+            'indexClasses' => 'exportable w_100',
+            'backRules' => 'required|max:100',
+        ],
+        'about' => [
+            'formType' => 'textArea',
+            'showType' => 'text',
+            'showInForm' => true,
+            'showInIndex' => false,
+            'showInView' => true,
+            'title' => 'About',
+            'requiredInForm' => false,
+            'widthInForm' => null,
+            'displayRule' => 'Max 500 characters',
+            'textAreaRows' => 3,
+            'indexClasses' => null,
+            'backRules' => 'nullable|max:500',
+        ],
+        'dob' => [
+            'formType' => 'date',
+            'showType' => 'text',
+            'showInForm' => true,
+            'showInIndex' => true,
+            'showInView' => true,
+            'title' => 'About',
+            'requiredInForm' => false,
+            'widthInForm' => null,
+            'displayRule' => null,
+            'textAreaRows' => null,
+            'indexClasses' => 'w_100 exportable',
+            'backRules' => 'nullable|date',
+        ],
+        'file' => [
+            'formType' => 'file',
+            'showType' => 'file',
+            'showInForm' => true,
+            'showInIndex' => true,
+            'showInView' => true,
+            'title' => 'File',
+            'requiredInForm' => false,
+            'widthInForm' => null,
+            'displayRule' => 'Max 5 MB',
+            'textAreaRows' => null,
+            'indexClasses' => 'no_orderable',
+            'backRules' => 'nullable|file|max:5120|mimes:pdf',
+        ],
+        'photo' => [
+            'formType' => 'image',
+            'showType' => 'image',
+            'showInForm' => true,
+            'showInIndex' => true,
+            'showInView' => true,
+            'title' => 'Photo',
+            'requiredInForm' => false,
+            'widthInForm' => null,
+            'displayRule' => 'Max 1 MB',
+            'textAreaRows' => null,
+            'indexClasses' => 'no_orderable',
+            'backRules' => 'nullable|image|max:1024|min:1',
+        ],
+        '_book' => [
+            'formType' => null,
+            'showType' => 'text',
+            'showInForm' => false,
+            'showInIndex' => true,
+            'showInView' => true,
+            'title' => 'Book',
+            'requiredInForm' => false,
+            'widthInForm' => null,
+            'displayRule' => null,
+            'textAreaRows' => null,
+            'indexClasses' => 'exportable',
+            'backRules' => null,
+        ],
+        'book' => [
+            'formType' => 'remoteList',
+            'showType' => 'text',
+            'showInForm' => true,
+            'showInIndex' => false,
+            'showInView' => false,
+            'title' => 'Book',
+            'requiredInForm' => false,
+            'widthInForm' => null,
+            'displayRule' => null,
+            'textAreaRows' => null,
+            'indexClasses' => null,
+            'remoteListUrl' => '/admin/getBooks',
+            'backRules' => 'nullable|numeric',
+        ],
+        'profile_link' => [
+            'formType' => 'textArea',
+            'showType' => 'url',
+            'showInForm' => true,
+            'showInIndex' => true,
+            'showInView' => true,
+            'title' => 'Profile Link',
+            'requiredInForm' => false,
+            'widthInForm' => null,
+            'displayRule' => null,
+            'textAreaRows' => 2,
+            'indexClasses' => 'no_orderable',
+            'backRules' => 'nullable|url',
+        ],
+        'gender' => [
+            'formType' => 'radio',
+            'showType' => 'text',
+            'showInForm' => true,
+            'showInIndex' => true,
+            'showInView' => true,
+            'title' => 'Gender',
+            'requiredInForm' => false,
+            'widthInForm' => null,
+            'displayRule' => null,
+            'textAreaRows' => null,
+            'indexClasses' => 'exportable',
+            'radioButtonsInForm' => [
+                [
+                    'title' => 'Male',
+                    'value' => '1',
+                ],
+                [
+                    'title' => 'Female',
+                    'value' => '2',
+                ],
+                [
+                    'title' => 'N/A',
+                    'value' => '3',
+                    'checked' => true
+                ],
+            ],
+            'backRules' => '',
+        ],
+        'email' => [
+            'formType' => 'email',
+            'showType' => 'text',
+            'showInForm' => true,
+            'showInIndex' => true,
+            'showInView' => true,
+            'title' => 'Email',
+            'requiredInForm' => false,
+            'widthInForm' => null,
+            'displayRule' => null,
+            'textAreaRows' => null,
+            'indexClasses' => 'exportable',
+            'backRules' => 'nullable|email',
+        ],
+        'age' => [
+            'formType' => 'number',
+            'showType' => 'text',
+            'showInForm' => true,
+            'showInIndex' => true,
+            'showInView' => true,
+            'title' => 'Age',
+            'requiredInForm' => false,
+            'widthInForm' => null,
+            'displayRule' => '1 to 100',
+            'textAreaRows' => null,
+            'indexClasses' => 'exportable',
+            'backRules' => 'nullable|numeric|min:1|max:100',
+        ],
+        'created_at' => [
+            'formType' => null,
+            'showType' => 'text',
+            'showInForm' => true,
+            'showInIndex' => false,
+            'showInView' => true,
+            'title' => 'Created At',
+            'requiredInForm' => false,
+            'widthInForm' => null,
+            'displayRule' => null,
+            'textAreaRows' => null,
+            'indexClasses' => null,
+            'backRules' => null,
+        ],
+        'updated_at' => [
+            'formType' => null,
+            'showType' => 'text',
+            'showInForm' => true,
+            'showInIndex' => false,
+            'showInView' => true,
+            'title' => 'Updated At',
+            'requiredInForm' => false,
+            'widthInForm' => null,
+            'displayRule' => null,
+            'textAreaRows' => null,
+            'indexClasses' => null,
+            'backRules' => null,
+        ],
+    ];
+
+    /* Rules to be validated by JavaScript */
     public function frontEndRules()
     {
         return "
@@ -45,172 +271,43 @@ class StudentCtrl extends Controller
         ";
     }
 
-    public $modelName = 'Student';
-    public $pageTitle = 'Student';
-    public $routePrefix = '/admin/';
-    public $formFieldsAdd = [];
-    public $formFieldsUpdate = [];
-    public $dataToSend = [];
-    public $indexParams = [];
-
     function __construct()
     {
-        $this->formFieldsAdd = [
-            'name' => [
-                'type' => 'text',
-                'title' => 'Name',
-                'required' => true,
-            ],
-            'about' => [
-                'type' => 'textArea',
-                'title' => 'About',
-            ],
-            'dob' => [
-                'type' => 'date',
-                'title' => 'Date of Birth',
-                'width' => '6'
-            ],
-            'file' => [
-                'type' => 'file',
-                'title' => 'File',
-                'rule' => 'Max. Size : 1 MB'
-            ],
-            'photo' => [
-                'type' => 'file',
-                'title' => 'Photo',
-                'rule' => 'Max. Size : 5 MB'
-            ],
-            'book' => [
-                'type' => 'remoteList',
-                'title' => 'Book',
-                'remoteUrl' => '/admin/getBooks',
-                'width' => '6'
-            ],
-            'profile_link' => [
-                'type' => 'textArea',
-                'title' => 'Profile Link',
-                'rows' => '1'
-            ],
-            'gender' => [
-                'type' => 'radio',
-                'title' => 'Gender',
-                'radios' => [
-                    [
-                        'title' => 'Male',
-                        'value' => '1',
-                    ],
-                    [
-                        'title' => 'Female',
-                        'value' => '2',
-                    ],
-                    [
-                        'title' => 'N/A',
-                        'value' => '3',
-                    ],
-                ]
-            ],
-            'email' => [
-                'type' => 'email',
-                'title' => 'Email',
-            ],
-            'age' => [
-                'type' => 'number',
-                'title' => 'Age',
-                'width' => '3',
-                'rule' => 'Between 1 to 100'
-            ],
-        ];
 
-        $this->dataToSend = [
-            'modelIndexUrl' => $this->routePrefix . $this->modelName,
+        /*
+            Construction of indexing records fetch URL e.g. /admin/getRecords/
+            (Don't change this)
+        */
+        $this->indexRecordsUrl = $this->routePrefix . $this->indexRecordsUrl . '/';
+
+        /*
+            Construction of indexing URL e.g. /admin/Model/
+            (Don't change this)
+        */
+        $this->modelIndexUrl = $this->routePrefix . $this->modelName . '/';
+
+        /*
+            Initial data to be sent
+            (Don't change this)
+        */
+        $this->initData = [
+            'modelIndexUrl' => $this->modelIndexUrl,
             'modelName' => $this->modelName,
             'pageTitle' => $this->pageTitle,
+            'indexRecordsUrl' => $this->indexRecordsUrl,
             'frontEndRules' => $this->frontEndRules(),
             'imageThumbDir' => $this->dir['imageThumbDir'],
             'imageDir' => $this->dir['imageDir'],
             'fileDir' => $this->dir['fileDir']
         ];
 
-        $this->indexParams = [
-            'columnDefs' => [
-                'Id' => [
-                    'type' => 'text',
-                    'showInIndex' => false
-                ],
-                'Name' => [
-                    'type' => 'text',
-                    'tableColumn' => 'name',
-                    'class' => 'exportable',
-                    'showInIndex' => true
-                ],
-                'Date of Birth' => [
-                    'type' => 'text',
-                    'tableColumn' => 'dob',
-                    'class' => 'w_100 exportable',
-                    'showInIndex' => true
-                ],
-                'Photo' => [
-                    'type' => 'image',
-                    'tableColumn' => 'photo',
-                    'class' => 'no_orderable',
-                    'showInIndex' => true
-                ],
-                'File' => [
-                    'type' => 'file',
-                    'tableColumn' => 'file',
-                    'class' => 'no_orderable',
-                    'showInIndex' => true
-                ],
-                'Book' => [
-                    'type' => 'text',
-                    'tableColumn' => 'book',
-                    'class' => 'w_150 exportable',
-                    'showInIndex' => true
-                ],
-                'Profile Link' => [
-                    'type' => 'url',
-                    'tableColumn' => 'profile_link',
-                    'class' => 'no_orderable',
-                    'showInIndex' => true
-                ],
-                'Gender' => [
-                    'type' => 'text',
-                    'tableColumn' => 'gender',
-                    'class' => 'exportable',
-                    'showInIndex' => true
-                ],
-                'Email' => [
-                    'type' => 'text',
-                    'tableColumn' => 'email',
-                    'class' => 'exportable',
-                    'showInIndex' => true
-                ],
-                'Age' => [
-                    'type' => 'text',
-                    'tableColumn' => 'age',
-                    'class' => 'exportable',
-                    'showInIndex' => true
-                ],
-                'Created At' => [
-                    'type' => 'text',
-                    'showInIndex' => false
-                ],
-                'Updated At' => [
-                    'type' => 'text',
-                    'showInIndex' => false
-                ],
-            ]
-        ];
-    }
-
-    public function index()
-    {
-        $data = array_merge_recursive($this->dataToSend, $this->indexParams);
-        return view('pages.admin.record_index', $data);
     }
 
     public function getRecords(Request $request)
     {
+
+        // Don't change from here
+
         // Request Data
 
         $searchVal = $request->get('search')['value'];
@@ -219,16 +316,14 @@ class StudentCtrl extends Controller
         $draw = intval($request->get('draw'));
         $orderColumn = intval($request->get('order')[0]['column']);
         $orderDir = $request->get('order')[0]['dir'];
-
         $orderColumnName = $request->get('columns')[$orderColumn]['data'];
-
 
         // Query Build
 
-        $query = Student::from('student');
+        $query = CurrentModel::from($this->tableName);
 
         if ($searchVal) {
-            $query->where('name', 'LIKE', '%' . $searchVal . '%');
+            $query->where($this->searchableColumnName, 'LIKE', '%' . $searchVal . '%');
         }
 
         if ($orderColumnName && $orderDir) {
@@ -243,16 +338,26 @@ class StudentCtrl extends Controller
             $query->take($length);
         }
 
+        // Don't change till here
+
+
+        /*********************
+         *  Need to change this
+         */
+
         $query->leftJoin('book', 'student.book', '=', 'book.id');
-        $query->select('student.*', 'book.title as book_title');
+        $query->select('student.*', 'book.title as _book');
 
+        /*********************
+         *  change till here
+         */
 
+        // Don't change from here
         // Response Data
 
         $records = $query->get();
-        $recordsTotal = Student::count();
+        $recordsTotal = CurrentModel::count();
         $recordsFiltered = $recordsTotal;
-
 
         $data = [
             'draw' => $draw,
@@ -262,187 +367,231 @@ class StudentCtrl extends Controller
         ];
 
         return $data;
+        // Don't change till here
+    }
+
+    protected function getSpecificModel($id, $join)
+    {
+
+        /***********************
+         * Change this
+         */
+
+        $model = null;
+        if ($join) {
+            $model = CurrentModel::from('student')
+                ->where('student.id', $id)
+                ->leftJoin('book', 'student.book', '=', 'book.id')
+                ->select('student.*', 'book.title as _book')
+                ->first();
+        } else {
+            $model = CurrentModel::find($id);
+        }
+
+        return $model;
+    }
+
+    protected function setShowAndEditColumns($model)
+    {
+        /***********************
+         * Change this
+         */
+
+        $columns = [
+            'id' => [
+                'value' => $model->id
+            ],
+            'name' => [
+                'value' => $model->name
+            ],
+            'about' => [
+                'value' => $model->about
+            ],
+            'dob' => [
+                'value' => $model->dob
+            ],
+            'file' => [
+                'value' => $model->file,
+            ],
+            'photo' => [
+                'value' => $model->photo,
+            ],
+            'book' => [
+                'value' => $model->book,
+                'remoteRecordTitle' => $model->_book,
+            ],
+            '_book' => [
+                'value' => $model->_book,
+            ],
+            'profile_link' => [
+                'value' => $model->profile_link
+            ],
+            'gender' => [
+                'value' => $model->gender
+            ],
+            'email' => [
+                'value' => $model->email
+            ],
+            'age' => [
+                'value' => $model->age
+            ],
+            'created_at' => [
+                'value' => $model->created_at
+            ],
+            'updated_at' => [
+                'value' => $model->updated_at
+            ],
+        ];
+        return $columns;
+    }
+
+    public function index()
+    {
+        /***********************
+         * Don't Change this
+         */
+
+        $data = array_merge_recursive($this->initData, ['columns' => $this->columns]);
+        return view('pages.admin.record_index', $data);
     }
 
     public function create()
     {
-
-        $data = array_merge_recursive($this->dataToSend, [
+        /***********************
+         * Don't Change this
+         */
+        $data = array_merge_recursive($this->initData, [
             'formAction' => $this->routePrefix . $this->modelName,
             'formType' => 'Add',
-            'formFields' => $this->formFieldsAdd
+            'columns' => $this->columns
         ]);
-
         return view('pages.admin.record_form', $data);
     }
 
     public function store(Request $request)
     {
-        $this->validate($request, $this->rules);
 
-        $new_id = (Student::count() > 0) ? (Student::orderBy('id', 'desc')->get(['id'])->first()->id + 1) : (1);
+        /***********************
+         * Don't Change this
+         */
 
-        $student = new Student();
+        $rules = [];
 
-        $this->saveRecord($request, $student, $new_id);
+        foreach ($this->columns as $columnName => $column) {
+            if ($column['backRules']) {
+                $rules = array_add($rules, $columnName, $column['backRules']);
+            }
+        }
 
-        return redirect()->route('Student.index');
+        $this->validate($request, $rules);
+
+        $new_id = (CurrentModel::count() > 0) ? (CurrentModel::orderBy('id', 'desc')->get(['id'])->first()->id + 1) : (1);
+
+        $model = new CurrentModel();
+
+        $this->saveRecord($request, $model, $new_id);
+
+        return redirect($this->modelIndexUrl);
 
     }
-
 
     public function show($id)
     {
-        $student = Student::
-        where('student.id', $id)
-            ->leftJoin('book', 'student.book', '=', 'book.id')
-            ->select('student.*', 'book.title as book_title')
-            ->first();
 
-        $showParams = [
-            'columnDefs' => [
-                'Id' => [
-                    'value' => $student->id
-                ],
-                'Name' => [
-                    'value' => $student->name
-                ],
-                'Date of Birth' => [
-                    'value' => $student->dob
-                ],
-                'Photo' => [
-                    'value' => $student->photo
-                ],
-                'File' => [
-                    'value' => $student->file
-                ],
-                'Book' => [
-                    'value' => $student->book
-                ],
-                'Profile Link' => [
-                    'value' => $student->profile_link
-                ],
-                'Gender' => [
-                    'value' => $student->gender
-                ],
-                'Email' => [
-                    'value' => $student->email
-                ],
-                'Age' => [
-                    'value' => $student->age
-                ],
-                'Created At' => [
-                    'value' => $student->created_at
-                ],
-                'Updated At' => [
-                    'value' => $student->updated_at
-                ],
-            ]
-        ];
+        /***********************
+         * Don't Change this
+         */
 
-        $data = array_merge_recursive($this->dataToSend, $this->indexParams, $showParams);
+        $model = $this->getSpecificModel($id, true);
 
+        $showParams = $this->setShowAndEditColumns($model);
 
+        $data = array_merge_recursive(
+            $this->initData,
+            ['columns' => array_merge_recursive($this->columns, $showParams)]);
         return view('pages.admin.record_show', $data);
     }
 
-
     public function edit($id)
     {
-        $student = Student::
-        where('student.id', $id)
-            ->leftJoin('book', 'student.book', '=', 'book.id')
-            ->select('student.*', 'book.title as book_title')
-            ->first();
 
-        $this->formFieldsUpdate = [
-            'name' => [
-                'value' => $student->name
-            ],
-            'about' => [
-                'value' => $student->about
-            ],
-            'dob' => [
-                'value' => $student->dob
-            ],
-            'file' => [
-                'value' => $student->file,
-                'dirName' => $this->dir['fileDir'],
-                'isImage' => false,
-            ],
-            'photo' => [
-                'value' => $student->photo,
-                'dirName' => $this->dir['imageThumbDir'],
-                'isImage' => false,
-            ],
-            'book' => [
-                'value' => $student->book,
-                'remoteRecordTitle' => $student->book_title,
-            ],
-            'profile_link' => [
-                'value' => $student->profile_link
-            ],
-            'gender' => [
-                'value' => $student->gender
-            ],
-            'email' => [
-                'value' => $student->email
-            ],
-            'age' => [
-                'value' => $student->age
-            ],
-        ];
+        /***********************
+         * Don't Change this
+         */
 
-        $data = array_merge_recursive($this->dataToSend, [
-            'formAction' => $this->routePrefix . $this->modelName . '/' . $student->id,
+        $model = $this->getSpecificModel($id, true);
+
+        $columnsUpdate = $this->setShowAndEditColumns($model);
+
+        $data = array_merge_recursive($this->initData, [
+            'formAction' => $this->routePrefix . $this->modelName . '/' . $model->id,
             'formType' => 'Update',
-            'formFields' => array_merge_recursive($this->formFieldsAdd, $this->formFieldsUpdate)
+            'columns' => array_merge_recursive($this->columns, $columnsUpdate)
         ]);
 
         return view('pages.admin.record_form', $data);
     }
 
-
     public function update(Request $request, $id)
     {
-        $student = Student::find($id);
+        /***********************
+         * Don't Change this
+         */
+        $model = CurrentModel::find($id);
 
-        $this->validate($request, $this->rules);
+        $rules = [];
 
-        $new_id = $student->id;
+        foreach ($this->columns as $columnName => $column) {
+            if ($column['backRules']) {
+                $rules = array_add($rules, $columnName, $column['backRules']);
+            }
+        }
 
-        $this->saveRecord($request, $student, $new_id);
+        $this->validate($request, $rules);
 
-        return redirect()->route('Student.index');
+        $new_id = $model->id;
+
+        $this->saveRecord($request, $model, $new_id);
+
+        return redirect($this->modelIndexUrl);
     }
-
 
     public function destroy($id)
     {
-        $student = Student::find($id);
+        /***********************
+         * Only change file and image columns if table has assets
+         */
+        $model = $this->getSpecificModel($id, false);
 
-        if (isset($student->photo)) {
+        // Remove this if model has not any files
+        // Delete files
+        if (isset($model->photo)) {
             Storage::delete([
-                $this->dir['imageDir'] . $student->photo,
-                $this->dir['imageThumbDir'] . $student->photo
+                $this->dir['imageDir'] . $model->photo,
+                $this->dir['imageThumbDir'] . $model->photo
             ]);
         }
 
-        if (isset($student->file)) {
+        if (isset($model->file)) {
             Storage::delete([
-                $this->dir['fileDir'] . $student->file
+                $this->dir['fileDir'] . $model->file
             ]);
         }
+        // Delete files End
 
-        $student->delete();
+        $model->delete();
 
-        return redirect()->route('Student.index');
+        return redirect($this->modelIndexUrl);
 
 
     }
 
-    public function saveRecord($request, $student, $new_id)
+    public function saveRecord($request, $model, $new_id)
     {
+
+        /***********************
+         * Change this and remove image and file save code if table has no assets
+         */
         // Saving Image
 
         $image = $request->file('photo');
@@ -458,7 +607,7 @@ class StudentCtrl extends Controller
                 $this->saveImage($img, $img_name, 800, 90, $this->dir['imageDir']);
                 $this->saveImage($img, $img_name, 100, 50, $this->dir['imageThumbDir']);
 
-                $student->photo = $img_name;
+                $model->photo = $img_name;
             }
         }
 
@@ -477,33 +626,39 @@ class StudentCtrl extends Controller
 
                 Storage::put($this->dir['fileDir'] . $fileName, file_get_contents($file));
 
-                $student->file = $fileName;
+                $model->file = $fileName;
 
             }
         }
 
         // Saving File Ends
 
-        $student->name = $request->get('name');
-        $student->about = $request->get('about');
-        $student->dob = $request->get('dob');
-        $student->book = $request->get('book');
-        $student->profile_link = $request->get('profile_link');
-        $student->gender = $request->get('gender');
-        $student->email = $request->get('email');
-        $student->age = $request->get('age');
+        $model->name = $request->get('name');
+        $model->about = $request->get('about');
+        $model->dob = $request->get('dob');
+        $model->book = $request->get('book');
+        $model->profile_link = $request->get('profile_link');
+        $model->gender = $request->get('gender');
+        $model->email = $request->get('email');
+        $model->age = $request->get('age');
 
-        $student->save();
+        $model->save();
     }
 
     public function getBooks()
     {
-        $books = Book::get(['id', 'title']);
-        return $books;
+        /***********************
+         * Change this or remove this function if table has no dependency
+         */
+        $models = Book::get(['id', 'title']);
+        return $models;
     }
 
     public function saveImage($img, $img_name, $width, $quality, $dir)
     {
+        /***********************
+         * Don't Change this
+         */
         $img
             ->resize($width, null, function ($c) {
                 $c->aspectRatio();

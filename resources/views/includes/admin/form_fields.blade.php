@@ -1,156 +1,163 @@
-@if($field['type'] == 'text')
-    @include('includes.admin.field_title')
-    <div class="row clearfix">
-        <div class="col-md-{{$field['width'] or 12}}">
-            <div class="form-group">
-                <div class="form-line">
-                    <input
-                            type="text"
-                            name="{{$fieldName}}"
-                            class="form-control"
-                            placeholder="{{$field['title']}}"
-                            value="{{$field['value'] or ''}}">
+@if($column['showInForm'])
+
+    @if($column['formType'] == 'text')
+        @include('includes.admin.field_title')
+        <div class="row clearfix">
+            <div class="col-md-{{$column['widthInForm'] or 12}}">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input
+                                type="text"
+                                name="{{$columnName}}"
+                                class="form-control"
+                                placeholder="{{$column['title']}}"
+                                value="{{$column['value'] or ''}}">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-@endif
-
-@if($field['type'] == 'textArea')
-    @include('includes.admin.field_title')
-    <div class="row clearfix">
-        <div class="col-md-{{$field['width'] or 12}}">
-            <div class="form-group">
-                <div class="form-line">
-                    <textarea name="{{$fieldName}}"
-                              rows="{{$field['rows'] or 2}}"
-                              class="form-control no-resize auto-growth"
-                              placeholder="{{$field['title']}}">{{$field['value'] or ''}}</textarea>
-                </div>
-            </div>
-        </div>
-    </div>
-@endif
-
-@if($field['type'] == 'date')
-    @include('includes.admin.field_title')
-    <div class="row clearfix">
-        <div class="col-md-{{$field['width'] or 12}}">
-            <div class="form-group">
-                <div class="form-line">
-                    <input name="{{$fieldName}}"
-                           type="text" class="datepicker form-control"
-                           placeholder="{{$field['title']}}"
-                           value="{{$field['value'] or ''}}">
-                </div>
-            </div>
-        </div>
-    </div>
-@endif
-
-@if($field['type'] == 'file')
-    @include('includes.admin.field_title')
-
-    @if(isset($field['value']))
-        @if($field['value'] && Storage::exists($field['dirName'].$field['value']))
-            @if($field['isImage'])
-                <img src="{{url($field['dirName'].$field['value'])}}"
-                     class="responsive m-b-10">
-                <i>(Don't change to keep same)</i>
-            @else
-                <a href="{{url($field['dirName'].$field['value'])}}" target="_blank">(Download
-                    Current File)</a>
-                <i>(Don't change to keep same)</i>
-            @endif
-        @endif
     @endif
 
-    <div class="row clearfix">
-        <div class="col-md-{{$field['width'] or 12}}">
-            <div class="form-group">
-                <div class="form-line">
-                    <input type="file" name="{{$fieldName}}"/>
+    @if($column['formType'] == 'textArea')
+        @include('includes.admin.field_title')
+        <div class="row clearfix">
+            <div class="col-md-{{$column['widthInForm'] or 12}}">
+                <div class="form-group">
+                    <div class="form-line">
+                    <textarea name="{{$columnName}}"
+                              rows="{{$column['rows'] or 2}}"
+                              class="form-control no-resize auto-growth"
+                              placeholder="{{$column['title']}}">{{$column['value'] or ''}}</textarea>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-@endif
+    @endif
 
-@if($field['type'] == 'remoteList')
-    @include('includes.admin.field_title')
-    <div class="row clearfix">
-        <div class="col-md-{{$field['width'] or 12}}">
-            <select id="remote_list" data-remote-url="{{$field['remoteUrl']}}" name="{{$fieldName}}"
-                    class="form-control show-tick"
-                    data-select-id="{{$field['value'] or ''}}"
-                    data-live-search="true"
-                    title="{{$field['title']}}">
-                @if(isset($field['value']) && $field['remoteRecordTitle'])
-                    <option value="{{$field['value']}}" selected>{{$field['remoteRecordTitle']}}</option>
+    @if($column['formType'] == 'date')
+        @include('includes.admin.field_title')
+        <div class="row clearfix">
+            <div class="col-md-{{$column['widthInForm'] or 12}}">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input name="{{$columnName}}"
+                               type="text" class="datepicker form-control"
+                               placeholder="{{$column['title']}}"
+                               value="{{$column['value'] or ''}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    @if($column['formType'] == 'file' or $column['formType'] == 'image')
+        @include('includes.admin.field_title')
+
+        @if(isset($column['value']))
+            @if($column['formType'] == 'file')
+                @if($column['value'] && Storage::exists($fileDir.$column['value']))
+                    <a href="{{url($fileDir.$column['value'])}}" target="_blank">
+                        (Download Current File)
+                    </a>
+                    <i>(Don't change to keep same)</i>
                 @endif
-            </select>
-        </div>
-    </div>
-@endif
-
-@if($field['type'] == 'radio')
-    @include('includes.admin.field_title')
-    <div class="row clearfix">
-        <div class="col-md-{{$field['width'] or 12}}">
-
-            @foreach($field['radios'] as $i=>$r)
-                @if(isset($field['value']))
-                    <input name="{{$fieldName}}" type="radio" id="radio_{{$i}}"
-                           value="{{$r['value']}}"
-                           class="with-gap radio-col-red"
-                            {{$r['title']==$field['value']?"checked='checked'":''}}
-                    />
-                @else
-                    <input name="{{$fieldName}}" type="radio" id="radio_{{$i}}"
-                           value="{{$r['value']}}"
-                           class="with-gap radio-col-red"
-                            {{isset($r['checked'])?($r['checked']?"checked='checked'":''):''}}
-                    />
+            @endif
+            @if($column['formType'] == 'image')
+                @if($column['value'] && Storage::exists($imageThumbDir.$column['value']))
+                    <img src="{{url($imageThumbDir.$column['value'])}}"
+                         class="responsive m-b-10">
+                    <i>(Don't change to keep same)</i>
                 @endif
-                <label for="radio_{{$i}}">{{$r['title']}}</label>
-            @endforeach
-        </div>
-    </div>
-@endif
+            @endif
+        @endif
 
-@if($field['type'] == 'email')
-    @include('includes.admin.field_title')
-    <div class="row clearfix">
-        <div class="col-md-{{$field['width'] or 12}}">
-            <div class="form-group">
-                <div class="form-line">
-                    <input name="{{$fieldName}}"
-                           type="text" class="form-control email_mask"
-                           placeholder="{{$field['title']}}"
-                           value="{{$field['value'] or ''}}">
+        <div class="row clearfix">
+            <div class="col-md-{{$column['widthInForm'] or 12}}">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="file" name="{{$columnName}}"/>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-@endif
+    @endif
 
-@if($field['type'] == 'number')
-    @include('includes.admin.field_title')
-    <div class="row clearfix">
-        <div class="col-md-{{$field['width'] or 12}}">
-            <div class="form-group">
-                <div class="form-line">
-                    <input
-                            type="number"
-                            name="{{$fieldName}}"
-                            class="form-control"
-                            class="form-control"
-                            placeholder="{{$field['title']}}"
-                            value="{{$field['value'] or ''}}">
+    @if($column['formType'] == 'remoteList')
+        @include('includes.admin.field_title')
+        <div class="row clearfix">
+            <div class="col-md-{{$column['widthInForm'] or 12}}">
+                <select id="remote_list" data-remote-url="{{$column['remoteListUrl']}}" name="{{$columnName}}"
+                        class="form-control show-tick"
+                        data-select-id="{{$column['value'] or ''}}"
+                        data-live-search="true"
+                        title="{{$column['title']}}">
+                    @if(isset($column['value']) && $column['remoteRecordTitle'])
+                        <option value="{{$column['value']}}" selected>{{$column['remoteRecordTitle']}}</option>
+                    @endif
+                </select>
+            </div>
+        </div>
+    @endif
+
+    @if($column['formType'] == 'radio')
+        @include('includes.admin.field_title')
+        <div class="row clearfix">
+            <div class="col-md-{{$column['widthInForm'] or 12}}">
+
+                @foreach($column['radioButtonsInForm'] as $i=>$r)
+                    @if(isset($column['value']))
+                        <input name="{{$columnName}}" type="radio" id="radio_{{$i}}"
+                               value="{{$r['value']}}"
+                               class="with-gap radio-col-red"
+                                {{$r['title']==$column['value']?"checked='checked'":''}}
+                        />
+                    @else
+                        <input name="{{$columnName}}" type="radio" id="radio_{{$i}}"
+                               value="{{$r['value']}}"
+                               class="with-gap radio-col-red"
+                                {{isset($r['checked'])?($r['checked']?"checked='checked'":''):''}}
+                        />
+                    @endif
+                    <label for="radio_{{$i}}">{{$r['title']}}</label>
+                @endforeach
+            </div>
+        </div>
+    @endif
+
+    @if($column['formType'] == 'email')
+        @include('includes.admin.field_title')
+        <div class="row clearfix">
+            <div class="col-md-{{$column['widthInForm'] or 12}}">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input name="{{$columnName}}"
+                               type="text" class="form-control email_mask"
+                               placeholder="{{$column['title']}}"
+                               value="{{$column['value'] or ''}}">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
+
+    @if($column['formType'] == 'number')
+        @include('includes.admin.field_title')
+        <div class="row clearfix">
+            <div class="col-md-{{$column['widthInForm'] or 12}}">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input
+                                type="number"
+                                name="{{$columnName}}"
+                                class="form-control"
+                                placeholder="{{$column['title']}}"
+                                value="{{$column['value'] or ''}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
+
+
 @endif
-
-

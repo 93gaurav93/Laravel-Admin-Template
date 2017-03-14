@@ -11,7 +11,7 @@
             <div class="card">
 
                 <div>
-                    <button id="addFormBtn" onclick="window.location.href = '{{$modelIndexUrl.'/create'}}'"
+                    <button id="addFormBtn" onclick="window.location.href = '{{$modelIndexUrl.'create'}}'"
                             type="button"
                             class="btn btn-primary waves-effect m-t-10 m-l-10">Add New Record
                     </button>
