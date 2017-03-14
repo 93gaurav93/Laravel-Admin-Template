@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Student;
+use App\Student as CurrentModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Book;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
-class CurrentModel extends Student
-{
-}
 
 class StudentCtrl extends Controller
 {
