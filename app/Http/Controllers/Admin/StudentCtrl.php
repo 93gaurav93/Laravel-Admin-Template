@@ -90,7 +90,7 @@ class StudentCtrl extends Controller
             'showInForm' => true,
             'showInIndex' => true,
             'showInView' => true,
-            'title' => 'About',
+            'title' => 'Date of Birth',
             'requiredInForm' => false,
             'widthInForm' => null,
             'displayRule' => null,
