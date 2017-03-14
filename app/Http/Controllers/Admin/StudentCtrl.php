@@ -499,7 +499,7 @@ class StudentCtrl extends Controller
     {
 
         /***********************
-         * Don't Change this
+         * Change this if you are not using join on tables
          */
 
         $model = $this->getSpecificModel($id, true);
@@ -516,7 +516,7 @@ class StudentCtrl extends Controller
     {
 
         /***********************
-         * Don't Change this
+         * Change this if you are not using join on tables
          */
 
         $model = $this->getSpecificModel($id, true);
