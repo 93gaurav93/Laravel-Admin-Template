@@ -86,7 +86,7 @@
         @include('includes.admin.field_title')
         <div class="row clearfix">
             <div class="col-md-{{$column['widthInForm'] or 12}}">
-                <select id="remote_list" data-remote-url="{{$column['remoteListUrl']}}" name="{{$columnName}}"
+                <select id="remote_list_{{$columnName}}" data-remote-url="{{$column['remoteListUrl']}}" name="{{$columnName}}"
                         class="form-control show-tick"
                         data-select-id="{{$column['value'] or ''}}"
                         data-live-search="true"

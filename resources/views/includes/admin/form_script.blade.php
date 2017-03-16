@@ -2,17 +2,24 @@
     $(function () {
 
 
-        $listSelect = $('#remote_list');
-        $.getJSON($listSelect.attr('data-remote-url'), function (result) {
+        @foreach($columns as $columnName=>$column)
+                @if($column['showInForm'])
+                @if($column['formType'] == 'remoteList')
+            $listSelect_{{$columnName}} = $('#remote_list_{{$columnName}}');
+        $.getJSON($listSelect_{{$columnName}}.attr('data-remote-url'), function (result) {
+            console.log($listSelect_{{$columnName}}.attr('data-remote-url'));
             var list = [];
             $.each(result, function (key, val) {
-                if (!(val.id == $listSelect.attr('data-select-id'))) {
+                if (!(val.id == $listSelect_{{$columnName}}.attr('data-select-id'))) {
                     list.push('<option value="' + val.id + '">' + val.title + '</option>');
                 }
             });
-            $listSelect.append(list.join(''));
-            $listSelect.selectpicker('refresh');
+            $listSelect_{{$columnName}}.append(list.join(''));
+            $listSelect_{{$columnName}}.selectpicker('refresh');
         });
+        @endif
+        @endif
+        @endforeach
 
         //Textare auto growth
         autosize($('textarea.auto-growth'));
