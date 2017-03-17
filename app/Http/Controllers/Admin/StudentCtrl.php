@@ -270,7 +270,6 @@ class StudentCtrl extends Controller
     function __construct()
     {
 
-        $this->middleware('auth');
         /*
             Construction of indexing records fetch URL e.g. /admin/getRecords/
             (Don't change this)
