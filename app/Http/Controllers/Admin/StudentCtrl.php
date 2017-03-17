@@ -270,6 +270,7 @@ class StudentCtrl extends Controller
     function __construct()
     {
 
+        $this->middleware('auth');
         /*
             Construction of indexing records fetch URL e.g. /admin/getRecords/
             (Don't change this)
@@ -645,6 +646,8 @@ class StudentCtrl extends Controller
     {
         /***********************
          * Change this or remove this function if table has no dependency
+         * make sure you are fetching 'id' and 'title'. If column name is different then use alias
+         * e.g. name as title
          */
         $models = Book::get(['id', 'title']);
         return $models;
