@@ -12,26 +12,39 @@
 */
 
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('test', function () {
-    $users = User::all();
-
-    dd($users);
 });
 
 
 Route::group([
     'prefix' => 'admin',
-    'namespace' => 'Admin'],
+    'namespace' => 'Admin',
+    'middleware' => 'auth'],
     function () {
 
-        Route::post('getStudents', 'StudentCtrl@getRecords');
-        Route::get('getBooks', 'StudentCtrl@getBooks');
-        Route::resource('Student', 'StudentCtrl');
+        Route::group(
+            [
+//                'middleware' => 'checkUserLevel:2',
+            ], function () {
+                Route::post('getStudents', 'StudentCtrl@getRecords');
+                Route::get('getBooks', 'StudentCtrl@getBooks');
+                Route::resource('Student', 'StudentCtrl');
 
-        Route::post('getUsers', 'UserCtrl@getRecords');
-        Route::resource('User', 'UserCtrl');
-
+                Route::post('getUserRecords', 'UserCtrl@getRecords');
+                Route::resource('User', 'UserCtrl');
+            });
     });
 
+
+// Authentication routes...
+
+Auth::routes();
+Route::get('logout', function () {
+    if (Auth::check()) {
+        Auth::logout();
+    }
+    return redirect()->route('login');
+});
 

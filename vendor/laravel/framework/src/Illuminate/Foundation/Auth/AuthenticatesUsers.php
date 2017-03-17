@@ -27,6 +27,13 @@ trait AuthenticatesUsers
      */
     public function login(Request $request)
     {
+        if ($request->get('remember') == 'on') {
+            $request['remember'] = true;
+        }
+        else{
+            $request['remember'] = false;
+        }
+
         $this->validateLogin($request);
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle

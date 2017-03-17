@@ -6,6 +6,7 @@ use App\Student as CurrentModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Book;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -25,6 +26,9 @@ class StudentCtrl extends Controller
     protected $pageTitle = 'Student';
 
     protected $routePrefix = '/admin/';
+
+    /* Set this true if you want to filter records according to user level */
+    protected $recordsUserFilter = true;
 
     /* URL from where you are fetching all records for index page */
     protected $indexRecordsUrl = 'getStudents';
@@ -301,7 +305,6 @@ class StudentCtrl extends Controller
 
     public function getRecords(Request $request)
     {
-
         // Don't change from here
 
         // Request Data
@@ -319,11 +322,11 @@ class StudentCtrl extends Controller
         $query = CurrentModel::from($this->tableName);
 
         if ($searchVal) {
-            $query->where($this->searchableColumnName, 'LIKE', '%' . $searchVal . '%');
+            $query->where($this->tableName.'.'.$this->searchableColumnName, 'LIKE', '%' . $searchVal . '%');
         }
 
         if ($orderColumnName && $orderDir) {
-            $query->orderBy($orderColumnName, $orderDir);
+            $query->orderBy($this->tableName.'.'.$orderColumnName, $orderDir);
         }
 
         if ($start) {
@@ -334,6 +337,7 @@ class StudentCtrl extends Controller
             $query->take($length);
         }
 
+
         // Don't change till here
 
 
@@ -343,6 +347,16 @@ class StudentCtrl extends Controller
 
         $query->leftJoin('book', 'student.book', '=', 'book.id');
         $query->select('student.*', 'book.title as _book');
+
+
+
+        // Filter records according to the level of user
+        if ($this->recordsUserFilter && Auth::check()) {
+            $currentUserLevel = Auth::user()->level;
+            $query->leftJoin('users', $this->tableName.'.user_id', '=', 'users.id');
+            $query->addSelect('users.level as _user_level');
+            $query->where('users.level', '>=', $currentUserLevel);
+        }
 
         /*********************
          *  change till here
@@ -368,10 +382,23 @@ class StudentCtrl extends Controller
 
     protected function getSpecificModel($id, $join)
     {
+        // Deny access if user tries to retrieve another user level record
+        if ($this->recordsUserFilter && Auth::check()) {
+            $currentUserLevel = Auth::user()->level;
+            $recordUserLevel = CurrentModel::from($this->tableName)
+                ->where($this->tableName.'.id', $id)
+                ->leftJoin('users', $this->tableName . '.user_id', '=', 'users.id')
+                ->select('users.*')
+                ->first();
+            if ($currentUserLevel > $recordUserLevel->level) {
+                abort(403, 'Unauthorized action...!');
+            }
+        }
 
         /***********************
          * Change this
          */
+
 
         $model = null;
         if ($join) {
@@ -637,6 +664,10 @@ class StudentCtrl extends Controller
         $model->gender = $request->get('gender');
         $model->email = $request->get('email');
         $model->age = $request->get('age');
+
+        if (Auth::check()) {
+            $model->user_id = Auth::user()->id;
+        }
 
         $model->save();
     }
