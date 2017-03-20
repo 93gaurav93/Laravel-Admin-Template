@@ -1,0 +1,27 @@
+{
+  "student": {
+    "modelName": "Student",
+    "searchableColumnName": "name",
+    "pageTitle": "Student",
+    "recordsUserFilter": true,
+    "imageColumns": ["photo"],
+    "fileColumns": ["file"],
+    "hasJoins": true,
+    "joins": {
+      "book": {
+        "foreignTable": "book",
+        "foreignColumn": "id",
+        "localColumn": "book",
+        "foreignTitleColumn": "title",
+        "condition": "="
+      },
+      "book2": {
+        "foreignTable": "book2",
+        "foreignColumn": "id",
+        "localColumn": "book2",
+        "foreignTitleColumn": "title",
+        "condition": "="
+      }
+    }
+  }
+}
