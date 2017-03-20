@@ -22,6 +22,7 @@ class student_s extends Seeder
                 'file' => '2.pdf',
                 'photo' => '2.jpg',
                 'book' => $faker->numberBetween(1, 10),
+                'book2' => $faker->numberBetween(1, 10),
                 'profile_link' => $faker->url,
                 'gender' => $faker->numberBetween(1, 2),
                 'email' => $faker->safeEmail,

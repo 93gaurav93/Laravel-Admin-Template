@@ -291,6 +291,7 @@ class ComposerStaticInit54f13447197eac72d40c2ec5941a3ddf
     );
 
     public static $classMap = array (
+        'Book2M' => __DIR__ . '/../..' . '/database/migrations/2017_03_06_180011_book2_m.php',
         'BookM' => __DIR__ . '/../..' . '/database/migrations/2017_03_06_180011_book_m.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
@@ -826,6 +827,7 @@ class ComposerStaticInit54f13447197eac72d40c2ec5941a3ddf
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
         'StudentM' => __DIR__ . '/../..' . '/database/migrations/2017_03_01_163758_student_m.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
+        'book2_s' => __DIR__ . '/../..' . '/database/seeds/book2_s.php',
         'book_s' => __DIR__ . '/../..' . '/database/seeds/book_s.php',
         'student_s' => __DIR__ . '/../..' . '/database/seeds/student_s.php',
         'user_table_seeder' => __DIR__ . '/../..' . '/database/seeds/user_table_seeder.php',

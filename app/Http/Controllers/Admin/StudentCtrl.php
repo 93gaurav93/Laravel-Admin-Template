@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\DataCtrl;
 use App\Student as CurrentModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -399,7 +400,6 @@ class StudentCtrl extends Controller
          * Change this
          */
 
-
         $model = null;
         if ($join) {
             $model = CurrentModel::from('student')
@@ -493,6 +493,8 @@ class StudentCtrl extends Controller
 
     public function store(Request $request)
     {
+
+
 
         /***********************
          * Don't Change this

@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Book2M' => $baseDir . '/database/migrations/2017_03_06_180011_book2_m.php',
     'BookM' => $baseDir . '/database/migrations/2017_03_06_180011_book_m.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
@@ -541,6 +542,7 @@ return array(
     'SebastianBergmann\\Version' => $vendorDir . '/sebastian/version/src/Version.php',
     'StudentM' => $baseDir . '/database/migrations/2017_03_01_163758_student_m.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
+    'book2_s' => $baseDir . '/database/seeds/book2_s.php',
     'book_s' => $baseDir . '/database/seeds/book_s.php',
     'student_s' => $baseDir . '/database/seeds/student_s.php',
     'user_table_seeder' => $baseDir . '/database/seeds/user_table_seeder.php',

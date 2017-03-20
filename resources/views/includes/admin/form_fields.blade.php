@@ -11,7 +11,7 @@
                                 name="{{$columnName}}"
                                 class="form-control"
                                 placeholder="{{$column['title']}}"
-                                value="{{$column['value'] or ''}}">
+                                value="{{$columnsValues[$columnName] or ''}}">
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                     <textarea name="{{$columnName}}"
                               rows="{{$column['rows'] or 2}}"
                               class="form-control no-resize auto-growth"
-                              placeholder="{{$column['title']}}">{{$column['value'] or ''}}</textarea>
+                              placeholder="{{$column['title']}}">{{$columnsValues[$columnName] or ''}}</textarea>
                     </div>
                 </div>
             </div>
@@ -41,9 +41,9 @@
                 <div class="form-group">
                     <div class="form-line">
                         <input name="{{$columnName}}"
-                               type="text" class="datepicker form-control"
+                               type="date" class="form-control"
                                placeholder="{{$column['title']}}"
-                               value="{{$column['value'] or ''}}">
+                               value="{{$columnsValues[$columnName] or ''}}">
                     </div>
                 </div>
             </div>
@@ -53,18 +53,18 @@
     @if($column['formType'] == 'file' or $column['formType'] == 'image')
         @include('includes.admin.field_title')
 
-        @if(isset($column['value']))
+        @if(isset($columnsValues[$columnName]))
             @if($column['formType'] == 'file')
-                @if($column['value'] && Storage::exists($fileDir.$column['value']))
-                    <a href="{{url($fileDir.$column['value'])}}" target="_blank">
+                @if($columnsValues[$columnName] && Storage::exists($fileDir.$columnsValues[$columnName]))
+                    <a href="{{url($fileDir.$columnsValues[$columnName])}}" target="_blank">
                         (Download Current File)
                     </a>
                     <i>(Don't change to keep same)</i>
                 @endif
             @endif
             @if($column['formType'] == 'image')
-                @if($column['value'] && Storage::exists($imageThumbDir.$column['value']))
-                    <img src="{{url($imageThumbDir.$column['value'])}}"
+                @if($columnsValues[$columnName] && Storage::exists($imageThumbDir.$columnsValues[$columnName]))
+                    <img src="{{url($imageThumbDir.$columnsValues[$columnName])}}"
                          class="responsive m-b-10">
                     <i>(Don't change to keep same)</i>
                 @endif
@@ -86,13 +86,15 @@
         @include('includes.admin.field_title')
         <div class="row clearfix">
             <div class="col-md-{{$column['widthInForm'] or 12}}">
-                <select id="remote_list_{{$columnName}}" data-remote-url="{{$column['remoteListUrl']}}" name="{{$columnName}}"
+                <select id="remote_list_{{$columnName}}" name="{{$columnName}}"
                         class="form-control show-tick"
-                        data-select-id="{{$column['value'] or ''}}"
+                        data-select-id="{{$columnsValues[$columnName] or ''}}"
                         data-live-search="true"
                         title="{{$column['title']}}">
-                    @if(isset($column['value']) && $column['remoteRecordTitle'])
-                        <option value="{{$column['value']}}" selected>{{$column['remoteRecordTitle']}}</option>
+                    @if(isset($columnsValues[$columnName]) && $columnsValues[$column['remoteColumn']])
+                        <option value="{{$columnsValues[$columnName]}}" selected>
+                            {{$columnsValues[$column['remoteColumn']]}}
+                        </option>
                     @endif
                 </select>
             </div>
@@ -105,11 +107,11 @@
             <div class="col-md-{{$column['widthInForm'] or 12}}">
 
                 @foreach($column['radioButtonsInForm'] as $i=>$r)
-                    @if(isset($column['value']))
+                    @if(isset($columnsValues[$columnName]))
                         <input name="{{$columnName}}" type="radio" id="radio_{{$i}}"
                                value="{{$r['value']}}"
                                class="with-gap radio-col-red"
-                                {{$r['title']==$column['value']?"checked='checked'":''}}
+                                {{$r['title']==$columnsValues[$columnName]?"checked='checked'":''}}
                         />
                     @else
                         <input name="{{$columnName}}" type="radio" id="radio_{{$i}}"
@@ -133,7 +135,7 @@
                         <input name="{{$columnName}}"
                                type="text" class="form-control email_mask"
                                placeholder="{{$column['title']}}"
-                               value="{{$column['value'] or ''}}">
+                               value="{{$columnsValues[$columnName] or ''}}">
                     </div>
                 </div>
             </div>
@@ -151,7 +153,7 @@
                                 name="{{$columnName}}"
                                 class="form-control"
                                 placeholder="{{$column['title']}}"
-                                value="{{$column['value'] or ''}}">
+                                value="{{$columnsValues[$columnName] or ''}}">
                     </div>
                 </div>
             </div>

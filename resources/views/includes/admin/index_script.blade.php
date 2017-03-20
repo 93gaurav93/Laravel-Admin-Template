@@ -67,10 +67,10 @@
                         @include('includes.admin.index_column_select')
                     @endforeach
                 {
-                    data: 'created_at',
+                    data: 'created_at'
                 },
                 {
-                    data: 'updated_at',
+                    data: 'updated_at'
                 }
             ]
         });
@@ -105,6 +105,8 @@
         /*$('.dataTables_scrollBody').scroll(function () {
          console.log($('.dataTables_scrollBody').scrollLeft());
          });*/
+
+
 
     });
 </script>

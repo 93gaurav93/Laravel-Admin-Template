@@ -21,6 +21,7 @@ class StudentM extends Migration
             $table->string('file',50)->nullable();
             $table->string('photo',50)->nullable();
             $table->integer('book')->nullable();
+            $table->integer('book2')->nullable();
             $table->string('profile_link', 500)->nullable();
             $table->integer('gender')->nullable();
             $table->string('email',50)->nullable();

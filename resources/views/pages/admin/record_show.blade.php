@@ -6,7 +6,7 @@
 
 @section('contents')
 
-    @foreach($columns as $columnName=>$column)
+    @foreach($columns as $columnName => $column)
         @include('includes.admin.record_show_select')
     @endforeach
 

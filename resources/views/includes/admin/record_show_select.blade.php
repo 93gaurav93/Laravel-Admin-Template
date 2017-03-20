@@ -10,8 +10,8 @@
                     </div>
                     <div class="body">
                         <p class="lead">
-                            @if($column['value'])
-                                {{$column['value']}}
+                            @if($columnsValues[$columnName])
+                                {{$columnsValues[$columnName]}}
                             @else
                                 Not Set
                             @endif
@@ -33,8 +33,8 @@
                     </div>
                     <div class="body">
                         <p class="lead">
-                            @if($column['value'] and Storage::exists($imageDir.$column['value']))
-                                <img src="{{$imageDir.$column['value']}}" class="img-responsive"/>
+                            @if($columnsValues[$columnName] and Storage::exists($imageDir.$columnsValues[$columnName]))
+                                <img src="{{$imageDir.$columnsValues[$columnName]}}" class="img-responsive"/>
                             @else
                                 Not Set
                             @endif
@@ -56,8 +56,8 @@
                     </div>
                     <div class="body">
                         <p class="lead">
-                            @if($column['value'] and Storage::exists($fileDir.$column['value']))
-                                <a href="{{$fileDir.$column['value']}}" target="_blank">Download</a>
+                            @if($columnsValues[$columnName] and Storage::exists($fileDir.$columnsValues[$columnName]))
+                                <a href="{{$fileDir.$columnsValues[$columnName]}}" target="_blank">Download</a>
                             @else
                                 Not Set
                             @endif
@@ -79,8 +79,8 @@
                     </div>
                     <div class="body">
                         <p class="lead">
-                            @if($column['value'])
-                                <a href="{{$column['value']}}" target="_blank">{{$column['value']}}</a>
+                            @if($columnsValues[$columnName])
+                                <a href="{{$columnsValues[$columnName]}}" target="_blank">{{$columnsValues[$columnName]}}</a>
                             @else
                                 Not Set
                             @endif

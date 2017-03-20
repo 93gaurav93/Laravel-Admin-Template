@@ -2,12 +2,20 @@
     $(function () {
 
 
-        @foreach($columns as $columnName=>$column)
+                @foreach($columns as $columnName=>$column)
                 @if($column['showInForm'])
                 @if($column['formType'] == 'remoteList')
-            $listSelect_{{$columnName}} = $('#remote_list_{{$columnName}}');
-        $.getJSON($listSelect_{{$columnName}}.attr('data-remote-url'), function (result) {
-            console.log($listSelect_{{$columnName}}.attr('data-remote-url'));
+
+        $listSelect_{{$columnName}} = $('#remote_list_{{$columnName}}');
+
+        var url = '{{$modelIndexUrl
+            . 'getRemoteRecords?foreignTableAndTitle='
+            . $column['foreignTable']
+            . ':'
+            . $column['foreignTitleColumn']}}';
+
+        $.getJSON(url, function (result) {
+
             var list = [];
             $.each(result, function (key, val) {
                 if (!(val.id == $listSelect_{{$columnName}}.attr('data-select-id'))) {
@@ -27,13 +35,15 @@
     });
 
     $('.datepicker').bootstrapMaterialDatePicker({
-        format: 'DD-MMM-YYYY',
+        format: 'DD-MM-YYYY',
         clearButton: true,
         weekStart: 1,
         time: false
     });
 
-    jQuery.validator.methods["date"] = function (value, element) { return true; };
+    jQuery.validator.methods["date"] = function (value, element) {
+        return true;
+    };
 
     //Email Mask
     $(".email_mask").inputmask({alias: "email"});
@@ -42,7 +52,7 @@
     $(function () {
         $('#form_validation').validate({
             rules: {
-        {!! $frontEndRules !!}
+                {{--{!! $frontEndRules !!}--}}
             },
             highlight: function (input) {
                 $(input).parents('.form-line').addClass('error');
