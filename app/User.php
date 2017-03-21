@@ -27,19 +27,4 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function getCreatedAtAttribute($value)
-    {
-        if (!$value) return null;
-
-        $date = date("d-M-Y H:i:s", strtotime($value));
-        return $date;
-    }
-
-    public function getUpdatedAtAttribute($value)
-    {
-        if (!$value) return null;
-
-        $date = date("d-M-Y H:i:s", strtotime($value));
-        return $date;
-    }
 }

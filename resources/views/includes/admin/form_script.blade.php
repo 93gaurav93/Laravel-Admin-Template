@@ -52,7 +52,7 @@
     $(function () {
         $('#form_validation').validate({
             rules: {
-                {{--{!! $frontEndRules !!}--}}
+                {!! $frontRules !!}
             },
             highlight: function (input) {
                 $(input).parents('.form-line').addClass('error');

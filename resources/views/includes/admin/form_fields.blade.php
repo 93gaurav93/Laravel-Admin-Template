@@ -18,6 +18,24 @@
         </div>
     @endif
 
+    @if($column['formType'] == 'password')
+        @include('includes.admin.field_title')
+        <div class="row clearfix">
+            <div class="col-md-{{$column['widthInForm'] or 12}}">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input
+                                type="password"
+                                name="{{$columnName}}"
+                                class="form-control"
+                                placeholder="{{$column['title']}}"
+                                value="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
     @if($column['formType'] == 'textArea')
         @include('includes.admin.field_title')
         <div class="row clearfix">

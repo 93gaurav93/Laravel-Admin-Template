@@ -25,7 +25,8 @@
     "displayRule": null,
     "textAreaRows": null,
     "indexClasses": "exportable w_200",
-    "backRules": "required|max:100"
+    "backRules": "required|max:100",
+    "frontRules": "required: true,maxlength: 100"
   },
   "about": {
     "title": "About",
@@ -39,7 +40,8 @@
     "displayRule": "Max 500 characters",
     "textAreaRows": 3,
     "indexClasses": null,
-    "backRules": "nullable|max:500"
+    "backRules": "nullable|max:500",
+    "frontRules": "maxlength: 500"
   },
   "dob": {
     "title": "Date of Birth",
@@ -53,7 +55,8 @@
     "displayRule": null,
     "textAreaRows": null,
     "indexClasses": "w_100 exportable",
-    "backRules": "nullable|date"
+    "backRules": "nullable|date",
+    "frontRules": "date: true"
   },
   "file": {
     "title": "File",
@@ -67,7 +70,8 @@
     "displayRule": "Max 5 MB",
     "textAreaRows": null,
     "indexClasses": "no_orderable",
-    "backRules": "nullable|file|max:5120|mimes:pdf"
+    "backRules": "nullable|file|max:5120|mimes:pdf",
+    "frontRules": "extension: 'pdf'"
   },
   "photo": {
     "title": "Photo",
@@ -82,7 +86,8 @@
     "textAreaRows": null,
     "imageWidth" : 800,
     "indexClasses": "no_orderable",
-    "backRules": "nullable|image|max:1024|min:1"
+    "backRules": "nullable|image|max:1024|min:1",
+    "frontRules": "extension: 'jpg|jpeg|png'"
   },
   "_book_title": {
     "title": "Book",
@@ -127,7 +132,8 @@
     "remoteColumn": "_book_title",
     "foreignTable": "book",
     "foreignTitleColumn": "title",
-    "backRules": "nullable|numeric"
+    "backRules": "nullable|numeric",
+    "frontRules": "digits: true"
   },
   "book2": {
     "title": "Book2",
@@ -144,7 +150,8 @@
     "remoteColumn": "_book2_title",
     "foreignTable": "book2",
     "foreignTitleColumn": "title",
-    "backRules": "nullable|numeric"
+    "backRules": "nullable|numeric",
+    "frontRules": "digits: true"
   },
   "profile_link": {
     "title": "Profile Link",
@@ -158,7 +165,8 @@
     "displayRule": null,
     "textAreaRows": 2,
     "indexClasses": "no_orderable",
-    "backRules": "nullable|url"
+    "backRules": "nullable|url",
+    "frontRules": "url: true"
   },
   "gender": {
     "title": "Gender",
@@ -187,7 +195,8 @@
         "checked": true
       }
     ],
-    "backRules": null
+    "backRules": null,
+    "frontRules": "maxlength: 500"
   },
   "email": {
     "title": "Email",
@@ -201,7 +210,8 @@
     "displayRule": null,
     "textAreaRows": null,
     "indexClasses": "exportable",
-    "backRules": "nullable|email"
+    "backRules": "nullable|email",
+    "frontRules": "email: true"
   },
   "age": {
     "title": "Age",
@@ -215,13 +225,14 @@
     "displayRule": "1 to 100",
     "textAreaRows": null,
     "indexClasses": "exportable",
-    "backRules": "nullable|numeric|min:1|max:100"
+    "backRules": "nullable|numeric|min:1|max:100",
+    "frontRules": "digits: true,range: [1,100]"
   },
   "created_at": {
     "title": "Created At",
     "formType": "date",
     "showType": "text",
-    "showInForm": true,
+    "showInForm": false,
     "showInIndex": false,
     "showInView": true,
     "requiredInForm": false,
@@ -235,7 +246,7 @@
     "title": "Updated At",
     "formType": "date",
     "showType": "text",
-    "showInForm": true,
+    "showInForm": false,
     "showInIndex": false,
     "showInView": true,
     "requiredInForm": false,

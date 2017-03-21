@@ -1,12 +1,19 @@
 {
+  "users": {
+    "modelName": "User",
+    "searchableColumnName": "name",
+    "pageTitle": "User",
+    "recordsUserFilter": true,
+    "userLevel": 1
+  },
   "student": {
     "modelName": "Student",
     "searchableColumnName": "name",
     "pageTitle": "Student",
     "recordsUserFilter": true,
+    "userLevel": 2,
     "imageColumns": ["photo"],
     "fileColumns": ["file"],
-    "hasJoins": true,
     "joins": {
       "book": {
         "foreignTable": "book",
