@@ -14,15 +14,9 @@ class user_table_seeder extends Seeder
     {
         DB::table('users')->insert([
             'name' => "GD1",
-            'email' => '93gaurav93@gmail.com',
+            'email' => 'master@gmail.com',
             'password' => Hash::make('12345678'),
             'level' => 1
-        ]);
-        DB::table('users')->insert([
-            'name' => "GD2",
-            'email' => '93gaurav9302@gmail.com',
-            'password' => Hash::make('12345678'),
-            'level' => 3
         ]);
     }
 }
