@@ -75,6 +75,8 @@ class TableCtrl extends Controller
             $query->take($length);
         }
 
+        $query->select($this->tableName . '.*');
+
         $query = DbCtrl::applyJoins($query, $this->tableMeta, $this->tableName);
 
         $query = UserCtrl::filterUserRecords($this->recordsUserFilter, $query, $this->tableName);
@@ -140,6 +142,8 @@ class TableCtrl extends Controller
         $query = DB::table($this->tableName);
 
         $query->where($this->tableName . '.id', $id);
+
+        $query->select($this->tableName . '.*');
 
         $query = DbCtrl::applyJoins($query, $this->tableMeta, $this->tableName);
 

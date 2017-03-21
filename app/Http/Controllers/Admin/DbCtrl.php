@@ -20,7 +20,6 @@ class DbCtrl extends Controller
 
             $joins = $tableMeta['joins'];
 
-            $query->select($tableName . '.*');
 
             foreach ($joins as $joinInfo) {
 
