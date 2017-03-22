@@ -1,18 +1,4 @@
 {
-  "id": {
-    "title": "Id",
-    "formType": null,
-    "showType": "text",
-    "showInForm": false,
-    "showInIndex": true,
-    "showInView": true,
-    "requiredInForm": true,
-    "widthInForm": null,
-    "displayRule": null,
-    "textAreaRows": null,
-    "indexClasses": null,
-    "backRules": null
-  },
   "name": {
     "title": "Name",
     "formType": "text",
@@ -227,33 +213,5 @@
     "indexClasses": "exportable",
     "backRules": "nullable|numeric|min:1|max:100",
     "frontRules": "digits: true,range: [1,100]"
-  },
-  "created_at": {
-    "title": "Created At",
-    "formType": "date",
-    "showType": "text",
-    "showInForm": false,
-    "showInIndex": false,
-    "showInView": true,
-    "requiredInForm": false,
-    "widthInForm": 3,
-    "displayRule": null,
-    "textAreaRows": null,
-    "indexClasses": null,
-    "backRules": null
-  },
-  "updated_at": {
-    "title": "Updated At",
-    "formType": "date",
-    "showType": "text",
-    "showInForm": false,
-    "showInIndex": false,
-    "showInView": true,
-    "requiredInForm": false,
-    "widthInForm": 3,
-    "displayRule": null,
-    "textAreaRows": null,
-    "indexClasses": null,
-    "backRules": null
   }
 }
