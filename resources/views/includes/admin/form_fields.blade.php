@@ -129,7 +129,7 @@
                         <input name="{{$columnName}}" type="radio" id="radio_{{$i}}"
                                value="{{$r['value']}}"
                                class="with-gap radio-col-red"
-                                {{$r['title']==$columnsValues[$columnName]?"checked='checked'":''}}
+                                {{$r['value']==$columnsValues[$columnName]?"checked='checked'":''}}
                         />
                     @else
                         <input name="{{$columnName}}" type="radio" id="radio_{{$i}}"
