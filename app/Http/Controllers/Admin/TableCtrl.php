@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class TableCtrl extends Controller
 {
@@ -185,6 +186,10 @@ class TableCtrl extends Controller
             $insertValues['user_id'] = $userId;
         }
 
+        if(isset($insertValues['password'])) {
+            $insertValues['password'] = Hash::make($insertValues['password']);
+        }
+
         DB::table($this->tableName)->insert($insertValues);
 
 
@@ -245,6 +250,10 @@ class TableCtrl extends Controller
             if ($value == null) {
                 array_pull($updateValues, $key);
             }
+        }
+
+        if(isset($updateValues['password'])) {
+            $updateValues['password'] = Hash::make($updateValues['password']);
         }
 
         $model->update($updateValues);
