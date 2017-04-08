@@ -199,6 +199,12 @@ class TableCtrl extends Controller
     {
         $columnsValues = (array)$this->getSpecificModel($id);
 
+        $unformattedRecords[0] = (object) $columnsValues;
+
+        $records = $this->applyAccessors($this->columnsMeta, $unformattedRecords);
+
+        $columnsValues = (array)$records[0];
+
         $data = array_merge_recursive(
             $this->initData,
             ['columns' => $this->columnsMeta],
@@ -309,6 +315,7 @@ class TableCtrl extends Controller
         $dates = [];
         $radios = [];
 
+
         // Collecting dates and radios columns
 
         foreach ($columns as $name => $value) {
@@ -358,6 +365,7 @@ class TableCtrl extends Controller
                 }
             }
         }
+
 
         return $records;
 

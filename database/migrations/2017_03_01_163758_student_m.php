@@ -26,7 +26,7 @@ class StudentM extends Migration
             $table->integer('gender')->nullable();
             $table->string('email',50)->nullable();
             $table->integer('age')->nullable();
-            $table->integer('user_id')->default(0);
+            $table->integer('user_id')->default(1);
             $table->timestamps();
         });
     }

@@ -22,6 +22,20 @@
                     <div id="export_buttons"></div>
                 </div>
 
+                <div class="clearfix"></div>
+
+                <div>
+
+                    <div class="clearfix">
+                        <div class="col-md-6">
+                            <p><b>Scroll Table</b></p>
+                            <div id="nouislider_basic_example"></div>
+                            <div class="m-t-20 font-12"><b>Value: </b><span class="js-nouislider-value"></span></div>
+                        </div>
+                    </div>
+
+                </div>
+
                 <div class="body">
                     <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                         <thead>

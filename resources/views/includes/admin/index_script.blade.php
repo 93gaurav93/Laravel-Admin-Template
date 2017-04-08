@@ -102,9 +102,8 @@
         exportButtons[0].classList.add('dt-buttons');
 
 
-        /*$('.dataTables_scrollBody').scroll(function () {
-         console.log($('.dataTables_scrollBody').scrollLeft());
-         });*/
+
+//        $('.dataTables_scrollBody').scrollLeft(350);
 
 
 
