@@ -72,7 +72,7 @@
     "textAreaRows": null,
     "imageWidth" : 800,
     "indexClasses": "no_orderable",
-    "backRules": "nullable|image|max:1024|min:1",
+    "backRules": "nullable|image|max:1024|mimes:jpg,jpeg,png",
     "frontRules": "extension: 'jpg|jpeg|png'"
   },
   "_book_title": {
@@ -182,7 +182,7 @@
       }
     ],
     "backRules": null,
-    "frontRules": "maxlength: 500"
+    "frontRules": ""
   },
   "email": {
     "title": "Email",
