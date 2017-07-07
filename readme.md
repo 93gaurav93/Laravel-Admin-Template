@@ -2,4 +2,4 @@
 
 ## Installation
 
- Markup : 1. composer install
+1. composer install
