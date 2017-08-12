@@ -3,7 +3,7 @@
 
 ## Installation
 
-1. Set database configuration in .env and make sure you've created a blank database and given privilages with user
+1. Create a new database and set user privileges. Update <code> .env </code> file according to database and user.
 2. Command → composer install
 3. Command → php artisan key:generate
 4. Command → php artisan migrate
@@ -20,3 +20,8 @@
 10. Go to http://127.0.0.1:8000/login
 
 11. Done...! :-)
+
+
+## Note
+
+This is the beta version. You are always welcome to contribute improvements.
