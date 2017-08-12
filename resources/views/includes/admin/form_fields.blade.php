@@ -1,7 +1,9 @@
 @if($column['showInForm'])
 
+    @include('includes.admin.field_title')
+
     @if($column['formType'] == 'text')
-        @include('includes.admin.field_title')
+
         <div class="row clearfix">
             <div class="col-md-{{$column['widthInForm'] or 12}}">
                 <div class="form-group">
@@ -19,7 +21,7 @@
     @endif
 
     @if($column['formType'] == 'password')
-        @include('includes.admin.field_title')
+
         <div class="row clearfix">
             <div class="col-md-{{$column['widthInForm'] or 12}}">
                 <div class="form-group">
@@ -37,7 +39,7 @@
     @endif
 
     @if($column['formType'] == 'textArea')
-        @include('includes.admin.field_title')
+
         <div class="row clearfix">
             <div class="col-md-{{$column['widthInForm'] or 12}}">
                 <div class="form-group">
@@ -53,7 +55,7 @@
     @endif
 
     @if($column['formType'] == 'date')
-        @include('includes.admin.field_title')
+
         <div class="row clearfix">
             <div class="col-md-{{$column['widthInForm'] or 12}}">
                 <div class="form-group">
@@ -69,7 +71,7 @@
     @endif
 
     @if($column['formType'] == 'file' or $column['formType'] == 'image')
-        @include('includes.admin.field_title')
+
 
         @if(isset($columnsValues[$columnName]))
             @if($column['formType'] == 'file')
@@ -101,7 +103,7 @@
     @endif
 
     @if($column['formType'] == 'remoteList')
-        @include('includes.admin.field_title')
+
         <div class="row clearfix">
             <div class="col-md-{{$column['widthInForm'] or 12}}">
                 <select id="remote_list_{{$columnName}}" name="{{$columnName}}"
@@ -120,7 +122,7 @@
     @endif
 
     @if($column['formType'] == 'radio')
-        @include('includes.admin.field_title')
+
         <div class="row clearfix">
             <div class="col-md-{{$column['widthInForm'] or 12}}">
 
@@ -145,7 +147,7 @@
     @endif
 
     @if($column['formType'] == 'email')
-        @include('includes.admin.field_title')
+
         <div class="row clearfix">
             <div class="col-md-{{$column['widthInForm'] or 12}}">
                 <div class="form-group">
@@ -161,7 +163,7 @@
     @endif
 
     @if($column['formType'] == 'number')
-        @include('includes.admin.field_title')
+
         <div class="row clearfix">
             <div class="col-md-{{$column['widthInForm'] or 12}}">
                 <div class="form-group">

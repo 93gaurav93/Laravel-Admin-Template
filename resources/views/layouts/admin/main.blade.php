@@ -116,7 +116,7 @@
         <!-- Footer -->
         <div class="legal">
             <div class="copyright">
-                &copy; 2017 <a href="javascript:void(0);">DreamCare Developers</a>
+                &copy; 2017 <a href="https://instagram.com/93gaurav93">Gaurav Deshpande</a>
             </div>
         </div>
         <!-- #Footer -->

@@ -29,8 +29,8 @@
 <body class="login-page">
 <div class="login-box">
     <div class="logo">
-        <a target="_blank" style="font-size: 25px;" href="http://dreamcaredevelopers.com/">DreamCare Developers</a>
-        <small>Admin Panel - Login</small>
+        <a target="_blank" style="font-size: 25px;" href="#">Laravel Admin Panel</a>
+        <small>Login</small>
     </div>
     <div class="card">
         <div class="body">

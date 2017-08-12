@@ -52,7 +52,6 @@ class DbCtrl extends Controller
     public static function validateRequest($request, $columnsMeta, $classInstance)
     {
         $rules = [];
-
         foreach ($columnsMeta as $columnName => $column) {
             if (isset($column['backRules']) && isset($column['backEditRules'])) {
                 $rules = array_add($rules, $columnName, $column['backEditRules']);

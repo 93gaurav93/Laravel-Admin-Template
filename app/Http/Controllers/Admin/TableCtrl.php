@@ -44,6 +44,7 @@ class TableCtrl extends Controller
 
     protected function getRecords(Request $request)
     {
+
         // Don't change from here
 
         // Request Data
@@ -201,6 +202,7 @@ class TableCtrl extends Controller
 
         $unformattedRecords[0] = (object) $columnsValues;
 
+
         $records = $this->applyAccessors($this->columnsMeta, $unformattedRecords);
 
         $columnsValues = (array)$records[0];
@@ -210,6 +212,7 @@ class TableCtrl extends Controller
             ['columns' => $this->columnsMeta],
             ['columnsValues' => $columnsValues]
         );
+
         return view('pages.admin.record_show', $data);
 
     }
@@ -227,6 +230,7 @@ class TableCtrl extends Controller
             'columnsValues' => $columnsValues,
             'frontRules' => $frontRules
         ]);
+
         return view('pages.admin.record_form', $data);
     }
 

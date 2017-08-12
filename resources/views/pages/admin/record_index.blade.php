@@ -24,7 +24,7 @@
 
                 <div class="clearfix"></div>
 
-                <div>
+                {{--<div>
 
                     <div class="clearfix">
                         <div class="col-md-6">
@@ -34,7 +34,7 @@
                         </div>
                     </div>
 
-                </div>
+                </div>--}}
 
                 <div class="body">
                     <table class="table table-bordered table-striped table-hover js-basic-example dataTable">

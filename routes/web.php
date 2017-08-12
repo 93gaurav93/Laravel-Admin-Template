@@ -35,6 +35,7 @@ View::composer(['layouts.admin.main', 'pages.admin.dashboard'], function ($view)
             'recordsCount' => DB::table($tableName)->count()
         ]);
     }
+
     $view->with([
         'tablesIndex' => $tablesIndex,
     ]);
