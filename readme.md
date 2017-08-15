@@ -15,7 +15,7 @@
 
 8. Change tables configuration in <code> storage/app/table_config/tables.json </code> according your needs.
 
-9. Change columns configuration in <code> storage/app/table_config/tablename_columns.json </code> according your needs.
+9. Change columns configuration in <code> storage/app/table_config/tablename_columns.json </code> according your needs. You can add more tables configurations like <code> tablename_columns.json </code>
 
 10. Go to http://127.0.0.1:8000/login
 
