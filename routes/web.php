@@ -19,7 +19,7 @@ Route::get('test', function () {
     dd(Auth::user());
 });
 
-oute::get('/', function () {
+Route::get('/', function () {
     return "Hello world...!";
 });
 
