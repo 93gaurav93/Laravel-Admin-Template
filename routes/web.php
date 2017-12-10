@@ -19,6 +19,10 @@ Route::get('test', function () {
     dd(Auth::user());
 });
 
+oute::get('/', function () {
+    return "Hello world...!";
+});
+
 
 View::composer(['layouts.admin.main', 'pages.admin.dashboard'], function ($view) {
 
