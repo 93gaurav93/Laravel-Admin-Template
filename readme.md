@@ -1,6 +1,7 @@
 <h2 align="center">Automated Laravel Admin Panel</h2>
 
-[![Build Status](https://travis-ci.org/93gaurav93/Laravel-Admin-Template.svg?branch=master)](https://travis-ci.org/93gaurav93/Laravel-Admin-Template)[![Hackage-Deps](https://img.shields.io/hackage-deps/v/lens.svg)](https://github.com/93gaurav93/Laravel-Admin-Template)
+[![Build Status](https://travis-ci.org/93gaurav93/Laravel-Admin-Template.svg?branch=master)](https://travis-ci.org/93gaurav93/Laravel-Admin-Template)
+[![VersionEye](https://img.shields.io/versioneye/d/ruby/rails.svg)](https://github.com/93gaurav93/Laravel-Admin-Template)
 
 ## Installation
 
