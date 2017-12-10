@@ -1,5 +1,6 @@
 <h2 align="center">Automated Laravel Admin Panel</h2>
 
+[![Build Status](https://travis-ci.org/93gaurav93/Laravel-Admin-Template.svg?branch=master)](https://travis-ci.org/93gaurav93/Laravel-Admin-Template)
 
 ## Installation
 
